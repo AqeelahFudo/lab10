@@ -23,7 +23,7 @@ mongoose.connect(uri, { useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once("open", () => {
-    console.log("Successfully connected to MongoDB using Mongoose!");
+    console.log("connected to MongoDB!");
 })
 
 app.get('/', (req,res)=>{
@@ -34,5 +34,5 @@ app.get("/home", controller.homepage);
 app.get("/book/:page", controller.findbook);
 
 app.listen(app.get("port"), ()=>{
-    console.log(`Server running at http://localhost:${app.get("port")}`);
+    console.log(`Server running http://localhost:${app.get("port")}`);
 });
