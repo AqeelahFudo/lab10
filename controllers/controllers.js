@@ -10,6 +10,40 @@ exports.getAllBooks = (req, res, next) => {
     });
 };
 
+exports.addbook = (req, res) => {
+    res.render("addBook")
+}
+
+exports.delbook = (req, res) => {
+    res.render("delBook")
+}
+
+exports.bookcreate = (req, res) => {
+    const book = new Books({
+        name: req.body.bookName,
+        author: req.body.bookAuthor,
+        link: req.body.amazonLink
+    });
+    book.save();
+    res.redirect("/home");
+}
+
+exports.bookDelete = (req, res, next) => {
+    const bookData = req.params.bookData;
+    console.log(bookData);
+    Books.findOneAndDelete({
+        bookname: bookData,
+    }, function (err, docs) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Deleted Book: ", docs);
+        }
+    });
+    res.redirect("/home");
+}
+
+
 exports.findbook = (req, res) => {
 
 let pages = req.params.page;

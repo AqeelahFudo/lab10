@@ -32,6 +32,15 @@ app.get('/', (req,res)=>{
 
 app.get("/home", controller.homepage);
 app.get("/book/:page", controller.findbook);
+app.get("/views/addbook", controller.addbook);
+app.get("/views/delbook", controller.getAllBooks, (req, res, next) => {
+    res.render("delBook", {
+        books: req.data
+    });
+});
+app.post("/books/bookcreate", controller.bookcreate);
+app.get("/bookDelete/:bookData", controller.bookDelete);
+
 
 app.listen(app.get("port"), ()=>{
     console.log(`Server running http://localhost:${app.get("port")}`);
