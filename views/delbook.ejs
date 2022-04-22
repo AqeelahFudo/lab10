@@ -1,46 +1,51 @@
-
-<center> <h1> Delete Book from Database  </h1> </center>
-<form action="<%= `../bookDelete/${books._id}` %>" method="GET">
-    <div class=bookSection>
-        <% let x = 0 %>
-        <% books.forEach (books => { %>
-            <% x++ %>
-            <br />
-            <div class=books>
-            <br />
-            <br />
-            <button id="<%= books._id %>" type="submit" onclick="if(!confirm('Do you want to delete this book?')){return false;}">
-            ❌  <a href="<%= `../bookDelete/${books.name}` %>" method="GET"  > <%= books.name %> </a>
-            </button> 
-            <br />
-            </div>
-            <br />
-            <%});%>
-    </div>
-</form>
-
-<center> 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br><br>
-    <br>
-    <br><br><br>
-    <br><br>
- 
-    <div class="Pane" >
-        
- 
-        <p style=" position: absolute; bottom: 0; left: 0; width: 100%; text-align: center;"> <a href="/home"> List of Books </a>
-
-            &nbsp;|
-        <a href="../views/addbook"> Add A Book </a>
-        &nbsp;|
-        <a href="../views/delbook"> Delete A Book </a>
-       <br /><br />
-    </p>
-    
-    </div>
+<center> <h1> Delete Book from Database  </h1>
+    <form action="<%= `../bookDelete/${books._id}` %>" method="GET">
+        <div class=bookSection>
+            <% let x = 0 %>
+            <% books.forEach (books => { %>
+                <% x++ %>
+                <br />
+                <div class=books>
+                <br />
+                <br />
+                <button id="<%= books._id %>" type="submit" onclick="myFunction()">
+                ❌  <a href="<%= `../bookDelete/${books.name}` %>" method="GET"> <%= books.name %> </a>
+                </button> 
+                <br />
+                </div>
+                <br />
+                <%});%>
+        </div>
+    </form>
     </center>
+    
+    <center> 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br><br>
+        <br>
+        <br><br><br>
+        <br><br>
+     
+        <div class="Pane" >
+            
+     
+            <p style=" position: absolute; bottom: 0; left: 0; width: 100%; text-align: center;"> <a href="/home"> List of Books </a>
+    
+                &nbsp;|
+            <a href="../views/addbook"> Add A Book </a>
+            &nbsp;|
+            <a href="../views/delbook"> Delete A Book </a>
+           <br /><br />
+        </p>
+        
+        </div>
+        </center>
+    <script>
+        function myFunction() {
+            if(!confirm('Do you want to delete this book?')){return false;}
+        }
+    </script>

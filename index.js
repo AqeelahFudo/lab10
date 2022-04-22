@@ -26,21 +26,33 @@ db.once("open", () => {
     console.log("connected to MongoDB!");
 })
 
-app.get('/', (req,res)=>{
-    res.render('home')
+app.get('/', controller.getAllBooks, (req,res) => {
+    res.render('home', {
+        books: req.data
+    });
 });
 
-app.get("/home", controller.homepage);
-app.get("/book/:pages", controller.findbook);
+app.get("/home", controller.getAllBooks, (req, res) => {
+    res.render('home', {
+        books: req.data
+    });
+});
+
+app.get("/views/book1/:id", controller.bookRequest);
+
 app.get("/views/addbook", controller.addbook);
+
 app.get("/views/delbook", controller.getAllBooks, (req, res, next) => {
     res.render("delBook", {
         books: req.data
     });
 });
-app.post("/books/bookcreate", controller.bookcreate);
-app.get("/bookDelete/:bookData", controller.bookDelete);
 
+app.post("/bookCreate", function(req, res) {
+    controller.bookCreate
+});
+
+app.get("/bookDelete/:bookData", controller.bookDelete);
 
 app.listen(app.get("port"), ()=>{
     console.log(`Server running http://localhost:${app.get("port")}`);

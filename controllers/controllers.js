@@ -10,6 +10,19 @@ exports.getAllBooks = (req, res, next) => {
     });
 };
 
+exports.bookRequest = (req,res, next) => {
+    let bookId = req.params.id;
+    books.findById(bookId)
+        .then(data => {
+            res.render("book1", {
+                book: data
+            });
+        })
+        .catch(error => {
+            res.redirect ("/home");
+        });
+},
+
 exports.addbook = (req, res) => {
     res.render("addBook")
 }
@@ -23,8 +36,9 @@ exports.bookcreate = (req, res, next) => {
     let bookParams = {
         name: req.body.bookName,
         author: req.body.bookAuthor,
-        web: req.body.amazonLink
+        link: req.body.amazonLink
     };
+    console.log(bookParams);
 
     books.create(bookParams)
         .then(user => {
@@ -35,21 +49,20 @@ exports.bookcreate = (req, res, next) => {
         .catch(error => {
             next(error);
         });
-},
-
-/* exports.bookcreate = (req, res) => {
-    const book = new book({
-        name: req.body.bookName,
-        author: req.body.bookAuthor,
-        link: req.body.amazonLink
-    });
-    book.save();
-    res.redirect("/home");
 }
-*/
+
+// exports.bookCreate = (req, res) => {
+//     const book = new bookData({
+//         name: req.body.bookName,
+//         author: req.body.bookAuthor,
+//         link: req.body.amazonLink
+//     });
+//     book.save();
+//     res.redirect("/home");
+// }
+
 exports.bookDelete = (req, res, next) => {
     const bookData = req.params.bookData;
-    console.log(bookData);
     Book.findOneAndDelete({
         bookname: bookData,
     }, function (err, docs) {
