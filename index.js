@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bookmodel = require("./models/book");
+//const bookmodel = require("./models/book");
 const controller = require("./controllers/controllers");
 const express = require("express"), 
 app= express();
@@ -31,7 +31,7 @@ app.get('/', (req,res)=>{
 });
 
 app.get("/home", controller.homepage);
-app.get("/book/:page", controller.findbook);
+app.get("/book/:pages", controller.findbook);
 app.get("/views/addbook", controller.addbook);
 app.get("/views/delbook", controller.getAllBooks, (req, res, next) => {
     res.render("delBook", {

@@ -18,8 +18,27 @@ exports.delbook = (req, res) => {
     res.render("delBook")
 }
 
-exports.bookcreate = (req, res) => {
-    const book = new Books({
+
+exports.bookcreate = (req, res, next) => {
+    let bookParams = {
+        name: req.body.bookName,
+        author: req.body.bookAuthor,
+        web: req.body.amazonLink
+    };
+
+    books.create(bookParams)
+        .then(user => {
+            res.locals.redirect = "/home";
+            res.locals.books;
+            next(); 
+        })
+        .catch(error => {
+            next(error);
+        });
+},
+
+/* exports.bookcreate = (req, res) => {
+    const book = new book({
         name: req.body.bookName,
         author: req.body.bookAuthor,
         link: req.body.amazonLink
@@ -27,11 +46,11 @@ exports.bookcreate = (req, res) => {
     book.save();
     res.redirect("/home");
 }
-
+*/
 exports.bookDelete = (req, res, next) => {
     const bookData = req.params.bookData;
     console.log(bookData);
-    Books.findOneAndDelete({
+    Book.findOneAndDelete({
         bookname: bookData,
     }, function (err, docs) {
         if (err) {
@@ -43,10 +62,8 @@ exports.bookDelete = (req, res, next) => {
     res.redirect("/home");
 }
 
-
-exports.findbook = (req, res) => {
-
-let pages = req.params.page;
+ /* exports.findbook = (req, res) => {
+let pages = req.params.pages;
     if (pages == 1) {
         var bookQuery = Book.findOne({
             name: "Dog Days",
@@ -70,6 +87,7 @@ let pages = req.params.page;
         bookQuery.exec((error, data) => {
             if (data) res.render("book3", {book: data});
         });
-    }
- 
-    };
+
+    } 
+};
+*/
