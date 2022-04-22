@@ -1,3 +1,4 @@
+const { db } = require("../models/book");
 const Book = require("../models/book");
 exports.homepage = (req,res) => {
     res.render("home");
@@ -31,24 +32,19 @@ exports.delbook = (req, res) => {
     res.render("delBook")
 }
 
-
-exports.bookcreate = (req, res, next) => {
-    let bookParams = {
+exports.bookCreate = (req, res, next) => {
+   Book.create ( {
         name: req.body.bookName,
         author: req.body.bookAuthor,
         link: req.body.amazonLink
-    };
-    console.log(bookParams);
+        
+    }).then(()=>{
+    res.redirect("/home");
+    });
 
-    books.create(bookParams)
-        .then(user => {
-            res.locals.redirect = "/home";
-            res.locals.books;
-            next(); 
-        })
-        .catch(error => {
-            next(error);
-        });
+
+
+    
 }
 
 // exports.bookCreate = (req, res) => {
@@ -62,9 +58,8 @@ exports.bookcreate = (req, res, next) => {
 // }
 
 exports.bookDelete = (req, res, next) => {
-    const bookData = req.params.bookData;
     Book.findOneAndDelete({
-        bookname: bookData,
+        bookId: req.params._id
     }, function (err, docs) {
         if (err) {
             console.log(err);
